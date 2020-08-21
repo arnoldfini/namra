@@ -23,6 +23,8 @@ def getWeather():
 
     temp = data.condition.temperature
 
-    return temp
+    return temp, location
 
+def getClimate():
 
+    temp, location = getWeather()
