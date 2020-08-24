@@ -1,0 +1,153 @@
+// Function to automatise creation of a google form
+
+function myFunction() {
+
+  // create and name form
+  var item = "Cuestionario de feedback musical";
+
+  var form = FormApp.create(item)
+  form.setTitle(item)
+
+  // Location
+  var item = form.addMultipleChoiceItem();
+  item.setTitle('Resides en España?');
+  item.setRequired(true);
+  item.setChoices([
+        item.createChoice('Sí'),
+        item.createChoice('No'),
+    ]);
+
+
+  /*
+
+  Song template
+
+  */
+
+
+  // Variables for the loop (inmutable)
+  var feelings = [
+    'Feliz',
+    'Encantado',
+    'Emocionado',
+    'Asombrado',
+    'Excitado',
+    'Tenso',
+    'Alarmado',
+    'Enfadado',
+    'Asustado',
+    'Irritado',
+    'Angustiado',
+    'Frustrado',
+    'Miserable',
+    'Triste',
+    'Melancólico',
+    'Deprimido',
+    'Aburrido',
+    'Marchito',
+    'Cansado',
+    'Adormecido',
+    'Calmado',
+    'Relajado',
+    'Satisfecho',
+    'A gusto',
+    'Contento',
+    'Sereno',
+    'Alegre',
+    'Muy satisfecho'
+
+  ];
+
+
+
+  function newSong(songName, ytUrl)
+  {
+
+    var newSection = form.addPageBreakItem().setTitle(songName);
+
+    // Video
+    form.addVideoItem()
+      .setVideoUrl(ytUrl);
+
+    // To store the random numbers that will be the indexes of feelings[]
+    var indexFeelings = [];
+
+
+    // Function to create random numbers
+    function getRandomInt(min, max)
+    {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var i;
+    for(i = 0; i < feelings.length; i++)
+    {
+      indexFeelings.push(getRandomInt(0,27));
+    }
+
+
+    // A loop to verify that there is no duplicate in the choices
+    var j;
+    var k;
+    for(j = 0; j < feelings.length; j++)
+    {
+      for(k = 0; k < feelings.length; k++)
+      {
+        if(indexFeelings[i] == indexFeelings[k]);
+        {
+          indexFeelings[k] = getRandomInt(0,27);
+        }
+      }
+    }
+
+
+
+    // Emotions question
+    var checkBoxItem = form.addCheckboxItem();
+    checkBoxItem.setTitle('Como te has sentido durante la canción?');
+    checkBoxItem.setRequired(true);
+    checkBoxItem.setChoices([
+      checkBoxItem.createChoice(feelings[indexFeelings[0]]),
+      checkBoxItem.createChoice(feelings[indexFeelings[1]]),
+      checkBoxItem.createChoice(feelings[indexFeelings[2]]),
+      checkBoxItem.createChoice(feelings[indexFeelings[3]]),
+      checkBoxItem.createChoice(feelings[indexFeelings[4]]),
+      checkBoxItem.createChoice(feelings[indexFeelings[5]])
+    ]);
+
+    var checkBoxValidation = FormApp.createCheckboxValidation()
+      .setHelpText('Selecciona las emociones que te ha transmitido. Puedes escoger más de una.')
+      .build();
+    checkBoxItem.setValidation(checkBoxValidation);
+
+    // To ask if they have reflected the song
+    var item = form.addMultipleChoiceItem();
+    item.setTitle('Te ha hecho reflexionar?');
+    item.setRequired(true);
+    item.setChoices([
+          item.createChoice('Sí'),
+          item.createChoice('No'),
+      ]);
+
+  }
+
+  // To store the name of all the songs and URLs
+  var songs = [];
+  var urls = [];
+
+  songs.push('Für Elise')
+  urls.push('https://www.youtube.com/watch?v=s71I_EWJk7I')
+
+  songs.push('Comfortably Numb')
+  urls.push('https://www.youtube.com/watch?v=x-xTttimcNk')
+
+  // Loop to initialise the newSong function "songs.length" times
+  var z;
+  for(z = 0; z < songs.length ; z++)
+  {
+    newSong(songs[z], urls[z])
+  }
+
+}
