@@ -16,13 +16,31 @@ driver.implicitly_wait(3)
 
 class Song:
 
+   i = 0
+
+   @classmethod
+   def counter(cls):
+
+      if cls.i == 0:
+
+         opts = webdriver.ChromeOptions()
+         opts.add_experimental_option("detach", True)
+
+         global driver
+         driver = webdriver.Chrome('C:\\Program Files (x86)\\chromedriver.exe', options=opts)
+         driver.maximize_window()
+
    def __init__(self, song, artist):
 
       self.title = song
 
       self.emotions = self.atributes()
 
-      self.url = self.url(song, artist)
+      Song.counter()
+
+      self.yturl = self.url(song, artist)
+
+      Song.i += 1
 
    def atributes(self):
 
@@ -36,12 +54,6 @@ class Song:
 
    def url(self, song, artist):
 
-      opts = webdriver.ChromeOptions()
-      opts.add_experimental_option("detach", True)
-
-      global driver
-      driver = webdriver.Chrome('C:\\Program Files (x86)\\chromedriver.exe', options=opts)
-      driver.maximize_window()
 
       driver.get('https://www.youtube.com')
 
@@ -63,12 +75,28 @@ class Song:
             EC.element_to_be_clickable((By.LINK_TEXT, song))
          ).click()
 
+         sleep(1)
+
+         url = driver.current_url
+
+
       except:
-         pass
 
-      sleep(1)
+         try:
+            WebDriverWait(driver, 3).until(
+               EC.element_to_be_clickable((By.LINK_TEXT, f'{artist} - {song}'))
+            ).click()
 
-      i += 1
+            sleep(1)
 
-      return url, error
+            url = driver.current_url
+
+         except:
+
+            url = 'ERROR!'
+            print(f'Error on song: {song}')
+
+
+
+      return url
 
