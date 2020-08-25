@@ -14,75 +14,34 @@ driver.execute_script("window.scrollTo(0, window.scrollY + 100)")
 driver.implicitly_wait(3)
 '''
 
-global username
-username = 'arnauperello2003'
-
-global password
-password = 'arni_96esp'
-
-
-def slow_typing(element, text):
-   for character in text:
-      element.send_keys(character)
-      time.sleep(0.3)
-
-
-def Form(username, password):
-
-   # webdriver_service = service.Service('C:\\Program Files (x86)\\operadriver.exe')
-   # webdriver_service.start()
-   # self.driver = webdriver.Remote(webdriver_service.service_url, webdriver.DesiredCapabilities.OPERA)
-   opts = webdriver.ChromeOptions()
-   opts.add_experimental_option("detach", True)
-
-   global driver
-   driver = webdriver.Chrome('C:\\Program Files (x86)\\chromedriver.exe', options=opts)
-   driver.maximize_window()
-
-   driver.get('https://stackoverflow.com/users/signup?ssrc=head&returnurl=%2fusers%2fstory%2fcurrent%27')
-
-   sleep(3)
-
-   driver.find_element_by_xpath('//*[@id="openid-buttons"]/button[1]').click()
-   driver.find_element_by_xpath('//input[@type="email"]').send_keys(username)
-   driver.find_element_by_xpath('//*[@id="identifierNext"]').click()
-
-   sleep(3)
-
-   driver.find_element_by_xpath('//input[@type="password"]').send_keys(password)
-   driver.find_element_by_xpath('//*[@id="passwordNext"]').click()
-
-   sleep(2)
-
-   driver.get('https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiziqqn9KvrAhWh8uAKHQmqAIsQFjABegQIAhAB&url=https%3A%2F%2Fdocs.google.com%2Fforms%2Fu%2F0%2F&usg=AOvVaw3ymUTIOucUumzj_sd1Nax6')
-
-   sleep(5)
-
-   # Enter to form
-   driver.find_element_by_xpath('//*[@class="docs-homescreen-grid-item-thumbnail"]').click()
-   #driver.find_element_by_id(':1u').click()
-
 class Song:
 
    def __init__(self, song, artist):
 
       self.title = song
 
-      self.emotions = atributes()
+      self.emotions = self.atributes()
 
-      self.url = url(song, artist)
+      self.url = self.url(song, artist)
 
    def atributes(self):
 
       emotions = emodict()
       emo = []
 
-      for key, value in emotions:
+      for key, value in emotions.items():
          emo.append(key)
 
       return emo
 
    def url(self, song, artist):
+
+      opts = webdriver.ChromeOptions()
+      opts.add_experimental_option("detach", True)
+
+      global driver
+      driver = webdriver.Chrome('C:\\Program Files (x86)\\chromedriver.exe', options=opts)
+      driver.maximize_window()
 
       driver.get('https://www.youtube.com')
 
@@ -112,39 +71,4 @@ class Song:
       i += 1
 
       return url, error
-
-class FillForm:
-
-   i = 0
-
-   @classmethod
-   def openChrome(cls):
-      if cls.i == 0:
-         Form(username, password)
-
-   @classmethod
-   def song_counter(cls):
-      cls.i += 1
-
-
-   def __init__(self, song):
-
-      FillForm.openChrome()
-      FillForm.song_counter()
-
-      self.section(song)
-
-
-   def section(self, song):
-
-      if FillForm.i > 0:
-         driver.execute_script("window.scrollTo(0, window.scrollY + 100)")
-         driver.implicitly_wait(2)
-
-      self.sect = driver.find_element_by_xpath('//*[@class="appsMaterialWizButtonEl appsMaterialWizButtonPapericonbuttonEl appsMaterialWizButtonPapericonbuttonLight freebirdFormeditorViewFatMenuItem"]').click()
-      self.sect.send_keys(song)
-      self.sect.send_keys(Keys.RETURN)
-
-FillForm('Lol')
-FillForm('XD')
 

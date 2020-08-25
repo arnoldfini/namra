@@ -1,5 +1,13 @@
 import math
 
+'''
+
+Emotions that had been taken into account. They are classified into a 2D plane.
+
++ Info: https://aip.scitation.org/doi/pdf/10.1063/1.5039095
+
+'''
+
 def emodict():
 
     emotions = {
@@ -49,9 +57,15 @@ def emodict():
         'Pleased': angle(355)
     }
 
-    emoreverse = {v: k for k, v in emotions.items()}
+    return emotions
 
-    return emotions, emoreverse
+def emoreverse():
+
+    emotions = emodict()
+
+    reverse = {v: k for k, v in emotions.items()}
+
+    return reverse
 
 def emodictrans():
     emociones = {
@@ -98,12 +112,16 @@ def emodictrans():
         'Content': 'Contento',
         'Serene': 'Sereno',
         'Glad': 'Alegre',
-        'Pleased': '+ Satisfecho'
+        'Pleased': 'Muy satisfecho'
     }
 
     return emociones
 
+def emoreversetrans():
 
+    reverso = {v: k for k, v in emociones.items()}
+
+    return reverso
 
 
 def angle(num):
