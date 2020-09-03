@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import re
-import random
+import randomize
 
 data = pd.read_csv(r'C:\Users\serio\OneDrive\Escritorio\music.csv', index_col=None, na_values=['NA'])
 

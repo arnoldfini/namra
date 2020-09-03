@@ -18,7 +18,7 @@ def getWeather():
     data = requests.get(url).json()
 
     location = data['city']
-
+    
     data = YahooWeather(APP_ID="t7nKZlaO",
                          api_key="dj0yJmk9ckw2ZDRVbUJld1ZxJmQ9WVdrOWREZHVTMXBzWVU4bWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTM0",
                          api_secret="4ffec13cee644a101daa4efacb63d7cb0e63497d")
