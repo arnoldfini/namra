@@ -119,7 +119,9 @@ def emodictrans():
 
 def emoreversetrans():
 
-    reverso = {v: k for k, v in emociones.items()}
+    dict = emodictrans()
+
+    reverso = {v: k for k, v in dict.items()}
 
     return reverso
 
