@@ -1,5 +1,10 @@
 from emotions import *
-import re
+
+'''
+
+Code to replace 'Yes', 'No' to 1, 0 respectively (etc) in a SQL query.
+
+'''
 
 # spanish-english
 emoinesp = emoreversetrans()
@@ -13,7 +18,7 @@ def strto2d(v):
 
     return str(twod)
 
-with open(r'C:\Users\serio\PycharmProjects\namra\musicpro - copia.txt', 'r', encoding= 'utf-8') as f:
+with open(r'C:\Users\serio\PycharmProjects\namra\form-data\SQL DB to csv\sqlcode-answers-raw.txt', 'r', encoding= 'utf-8') as f:
 
         text = f.read()
 
@@ -26,11 +31,8 @@ with open(r'C:\Users\serio\PycharmProjects\namra\musicpro - copia.txt', 'r', enc
             print(key, value)
             text = text.replace(key, strto2d(value))
 
-        #text = text.replace('(', '[').replace(')', ']')
 
 
-
-
-with open("test1.txt", "w") as w:
+with open("sqlcode-answers-adapted", "w") as w:
 
     w.write(text)
