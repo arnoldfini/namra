@@ -35,4 +35,4 @@ with open(r'C:\Users\serio\PycharmProjects\namra\form-data\SQL DB to csv\sqlcode
 
 with open("sqlcode-answers-adapted", "w") as w:
 
-    w.write(text)
+    w.write(f'{text}')
