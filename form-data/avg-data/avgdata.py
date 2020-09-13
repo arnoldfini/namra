@@ -74,16 +74,14 @@ for key, value in df.iteritems():
     counter = 0
 
     for i in range(len(df)):
-        print(value[i], type(value[i]))
         try:
-            if value[i].endswith(')'):
-                vector_suma += iter_str_tuple(value[i])
+            if type(np.float64()) == type(value[i]):
+                suma += int(value[i])
                 counter += 1
 
-            elif type(value[i].astype(float)) == type(float):
-                print('Int')
+            elif value[i].endswith(')'):
+                vector_suma += iter_str_tuple(value[i])
                 counter += 1
-                suma += int(value[i])
 
         except ValueError:
             continue
@@ -91,17 +89,26 @@ for key, value in df.iteritems():
         except AttributeError:
             continue
 
-    if suma == 0:
+    if la.norm(vector_suma) == la.norm(np.array([0, 0], dtype=float)):
+        avg.append(round(suma / counter))
+
+    else: # if suma == 0:
         avg.append(vector_suma / counter)
 
-    else:
-        avg.append(round(suma / counter*10))
+
 
     key_num += 1
 
-df_dict = {'Feelings': [avg_feeling for avg_feeling in avg[::3]],
-           'Transcendent': [avg_transc for avg_transc in avg[1::3]],
-           'Likeable': [like for like in avg[2::3]]}
 
-avg_df = pd.DataFrame(df_dict, columns=['Feelings', 'Transcendent', 'Likeable'], index=[song for song in titles])
-print(avg_df)
+def df_avg():
+
+    df_dict = {'Feelings': [avg_feeling for avg_feeling in avg[::3]],
+               'Transcendent': [avg_transc for avg_transc in avg[1::3]],
+               'Likeable': [like for like in avg[2::3]]}
+
+    avg_df = pd.DataFrame(df_dict, columns=['Feelings', 'Transcendent', 'Likeable'], index=[song for song in titles])
+
+    return avg_df
+
+
+#with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
