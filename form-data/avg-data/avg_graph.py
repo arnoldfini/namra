@@ -35,12 +35,13 @@ no_trans_songs = [[], []]
 
 # Array to store the random values if useful later
 random_values = [12, 34, 30, 14, 24, 26, 19, 26, 25, 32, 34, 1, 15, 35, 18, 32, 12, 27, 24, 13]
-i=0
-for j in random_values:
-#for i in range(len(df)):
+
+# i = 0
+#for j in random_values:
+for i in range(len(df)):
 
     # Create random number to iterate random rows in the dataframe, and store it in random_values[]
-    #j = int(len(df) * np.random.random_sample())
+    j = int(len(df) * np.random.random_sample())
     #random_values.append(j)
 
     # Append both x and y coordinates
@@ -59,7 +60,9 @@ for j in random_values:
         plt.annotate(titles[j], (x_values[i], y_values[i]))
         no_trans_songs[0].append(x_values[i])
         no_trans_songs[1].append(y_values[i])
-    i+=1
+
+    # CHANGE IF NECESSARY
+    #i += 1
 
 # Draw points
 plt.scatter(trans_songs[0], trans_songs[1], c='r', label='Música trascendent')
