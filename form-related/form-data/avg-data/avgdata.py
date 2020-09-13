@@ -4,7 +4,7 @@ import numpy as np
 import numpy.linalg as la
 
 
-def main():
+def df_avg():
 
     titles = getTitles()
 
@@ -17,7 +17,7 @@ def main():
     - If they made them reflect (integer)
     '''
 
-    df = pd.read_csv(r'C:\Users\serio\PycharmProjects\namra\form-data\machine-form.csv', encoding='utf-8', header=1)
+    df = pd.read_csv(r'C:\Users\serio\PycharmProjects\namra\form-related\form-data\machine-form.csv', encoding='utf-8', header=1)
 
     # Array to store only the average
     avg = []
@@ -65,7 +65,7 @@ def main():
         key_num += 1
 
 
-def df_avg():
+
 
     df_dict = {'Feelings': [avg_feeling for avg_feeling in avg[::3]],
                'Transcendent': [avg_transc for avg_transc in avg[1::3]],
@@ -114,6 +114,5 @@ def iter_str_tuple(tuple_str):
     return attributes
 
 
-main()
 
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
