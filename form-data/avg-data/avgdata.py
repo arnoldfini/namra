@@ -29,16 +29,21 @@ def iter_str_tuple(tuple_str):
 '''
 Extract titles from titles.txt
 '''
-titles = []
+def getTitles():
+    titles = []
 
-with open('titles.txt', 'r') as f:
-    read = csv.reader(f, delimiter=',', quotechar='|')
+    with open('titles.txt', 'r') as f:
+        read = csv.reader(f, delimiter=',', quotechar='|')
 
-    for song in read:
-        titles.append(song)
+        for song in read:
+            titles.append(song)
 
-newtitles = [song for song in titles[0]]
-titles = newtitles
+    newtitles = [song for song in titles[0]]
+    titles = newtitles
+
+    return titles
+
+titles = getTitles()
 
 '''
 Search for the average attributes of each song
@@ -93,7 +98,7 @@ for key, value in df.iteritems():
         avg.append(round(suma / counter))
 
     else: # if suma == 0:
-        avg.append(vector_suma / counter)
+        avg.append(np.round(vector_suma / counter, decimals=10))
 
 
 
