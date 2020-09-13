@@ -3,10 +3,13 @@ from numpy.random import random
 from avgdata import df_avg, getTitles
 import math
 from mpl_toolkits.mplot3d import Axes3D
+from emotions import *
 
 # Dataframe, and songs' titles
 df = df_avg()
 titles = getTitles()
+emotions = emodict()
+emotrans = emodictrans()
 
 # Array where all the coordinates and its respective labels will be stored
 x_values = []
@@ -55,6 +58,18 @@ for i in range(0, 360):
 
 # Plot unit circle
 ax.plot(cos, sin, 'k--', linewidth=0.1)
+
+zeros = []
+
+for key, value in emotions.items():
+    zeros.append(0)
+
+# Label the emotions in a 2D plane, which they lie in the unit circle
+for key, value in emotions.items():
+    plt.annotate(emotrans[key], value, zeros)
+
+# Draw emotion points
+plt.scatter([v[0] for k, v in emotions.items()], [v[1] for k,v in emotions.items()], zeros, c='k')
 
 # Title and show
 plt.title('Emocions entre cançons')

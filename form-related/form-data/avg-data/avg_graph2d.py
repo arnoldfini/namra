@@ -34,7 +34,7 @@ trans_songs = [[], []]
 no_trans_songs = [[], []]
 
 # Array to store the random values if useful later
-random_values = [12, 34, 30, 14, 24, 26, 19, 26, 25, 32, 34, 1, 15, 35, 18, 32, 12, 27, 24, 13]
+#random_values = [12, 34, 30, 14, 24, 26, 19, 26, 25, 32, 34, 1, 15, 35, 18, 32, 12, 27, 24, 13]
 
 # i = 0
 #for j in random_values:
@@ -65,8 +65,8 @@ for i in range(len(df)):
     #i += 1
 
 # Draw points
-plt.scatter(trans_songs[0], trans_songs[1], c='r', label='Música trascendent')
-plt.scatter(no_trans_songs[0], no_trans_songs[1], label='Música no trascendent')
+plt.scatter(trans_songs[0], trans_songs[1], c='r', label='Música trascendental')
+plt.scatter(no_trans_songs[0], no_trans_songs[1], label='Música no trascendental')
 
 # Legend the labels above
 plt.legend(loc='upper left',
