@@ -69,7 +69,7 @@ for key, value in emotions.items():
     plt.annotate(emotrans[key], value, zeros)
 
 # Draw emotion points
-plt.scatter([v[0] for k, v in emotions.items()], [v[1] for k,v in emotions.items()], zeros, c='k')
+plt.scatter([v[0] for k, v in emotions.items()], [v[1] for k, v in emotions.items()], zeros, c='k')
 
 # Title and show
 plt.title('Emocions entre cançons')

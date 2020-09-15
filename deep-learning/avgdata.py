@@ -84,7 +84,7 @@ def getTitles():
 
     titles = []
 
-    with open('titles.txt', 'r') as f:
+    with open(r'C:\Users\serio\PycharmProjects\namra\form-related\form-data\avg-data\titles.txt', 'r') as f:
         read = csv.reader(f, delimiter=',', quotechar='|')
 
         for song in read:
