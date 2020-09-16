@@ -10,9 +10,9 @@ def df_avg():
 
     '''
     Search for the average attributes of each song
-    
+
     Information taken into account:
-    
+
     - Feeling they had when listening (vector)
     - If they made them reflect (integer)
     '''
@@ -111,8 +111,8 @@ def iter_str_tuple(tuple_str):
             attributes[0] = float(tuple_str[:i])
             attributes[1] = float(tuple_str[i + 1:])
 
-    return attributes
-
+    return print(attributes)
+iter_str_tuple('(0.1, 0.2)')
 
 
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also

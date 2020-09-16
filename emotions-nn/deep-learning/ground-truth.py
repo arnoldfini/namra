@@ -1,9 +1,9 @@
-from emotions import *
+from emotions import emodict
 import numpy as np
 from avgdata import getTitles, df_avg
 
 
-def ground_truth():
+def get_ground_truth():
 
     def find_nearest(array, value):
         array = np.asarray(array)
@@ -51,9 +51,9 @@ def ground_truth():
         most_accurate.append(most_accurate_emotion)
 
     '''
-    
-    Transform feelings into vectors as its own dimension 
-    
+
+    Transform feelings into vectors as its own dimension
+
     '''
 
     ground_truth = np.zeros((len(most_accurate), len(most_accurate)), dtype=int)
@@ -67,5 +67,3 @@ def ground_truth():
                 ground_truth[i][index] = 1
 
     return ground_truth
-
-
