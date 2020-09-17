@@ -1,7 +1,6 @@
 from emotions import emodict
 import numpy as np
-from avgdata import getTitles, df_avg
-
+from avgdata import *
 
 def get_ground_truth():
 

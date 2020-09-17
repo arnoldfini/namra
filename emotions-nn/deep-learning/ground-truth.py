@@ -1,6 +1,11 @@
 from emotions import emodict
 import numpy as np
-from avgdata import getTitles, df_avg
+from .avgdata import getTitles
+import os
+import sys
+
+file_dir = os.path.dirname(r'C:\Users\serio\PycharmProjects\namra\emotions-nn\deep-learning\ground-truth.py')
+sys.path.append(file_dir)
 
 
 def get_ground_truth():

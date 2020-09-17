@@ -1,4 +1,8 @@
 import pandas as pd
+from avgdata import getTitles
+
+# Set input_real, the actual labels, to the titles themselves
+input_real = getTitles()
 
 '''
 File to grab the input.
@@ -12,7 +16,8 @@ Two types of input:
 
 '''
 
-df = pd.read_csv(r'C:\Users\serio\PycharmProjects\neurontest\csv-related\songs.csv', index_col=None, na_values=['NA'], delimiter=',', encoding="utf-8-sig")
+df = pd.read_csv(r'D:\\fma_metadata\\raw_tracks.csv', index_col=None, na_values=['NA'], delimiter=',', encoding="utf-8")
 
 
 # NUMERICAL INPUT
+print(df)

@@ -111,8 +111,7 @@ def iter_str_tuple(tuple_str):
             attributes[0] = float(tuple_str[:i])
             attributes[1] = float(tuple_str[i + 1:])
 
-    return print(attributes)
-iter_str_tuple('(0.1, 0.2)')
+    return attributes
 
 
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also

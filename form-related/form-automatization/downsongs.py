@@ -25,8 +25,9 @@ def main():
         titles.append(songdata['song.name'][i])
 
     titles[0] = 'Tanssi Vain'
+    print(titles)
+    #ytUrls(titles, songdata)
 
-    ytUrls(titles, songdata)
 
 
 
@@ -93,14 +94,14 @@ def ytUrls(titles, songdata):
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
         for i in range(len(urls)):
-            writer.writerow(urls[i]: urls[j])
+            writer.writerow(f'{urls[i]}: {urls[j]}')
 
     with open('errorytsongs.csv''w+'):
         writer = csv.writer(csvfile, delimiter=' ',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
         for i in range(len(errors)):
-            writer.writerow(errors[i]: errors[j])
+            writer.writerow(f'{errors[i]}: {errors[j]}')
 
     return
 
