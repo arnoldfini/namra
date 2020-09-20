@@ -1,5 +1,7 @@
 import pandas as pd
 from avgdata import getTitles
+import numpy as np
+import sys
 
 # Set input_real, the actual labels, to the titles themselves
 input_real = getTitles()
@@ -16,31 +18,39 @@ Two types of input:
 
 '''
 
-df = pd.read_csv(r'D:\fma_metadata\raw_tracks.csv', index_col=0, na_values=['NA'], delimiter=',', encoding="utf-8")
-titles = getTitles()
 
-repeated = []
-for key, value in df.iterrows():
+def get_id():
+    titles = getTitles()
+    df = pd.read_csv(r'D:\fma_metadata\tracks.csv', index_col=None, na_values=['NA'], delimiter=',', encoding="utf-8")
+    id = []
 
-    if df['track_title'][key] in repeated:
-        continue
+    for song in titles:
+        for i in range(len(df)):
+            if song == df['track.19'][i]:
+                id.append(df['Unnamed: 0'][i])
+                break
 
-    else:
-        if df['track_title'][key] in titles:
-            repeated.append(df['track_title'][key])
+    print(f'Titles: {titles} \nArray of IDs: {id} \nLength of the array {len(id)} ')
 
-    for i in range(len(repeated)):
-        for j in range(len(titles)):
-            if repeated[i] != titles[i]:
-                tmp_index = titles.index(titles[i])
+    return id
 
-                tmp = titles[i]
 
-                for k in range(len(titles)):
-                    if titles[k] == tmp:
-                        titles[k], titles[tmp_index] = tmp, titles[k]
+def extract_features(id_arr):
+    features_df = pd.read_csv(r'D:\fma_metadata\features.csv', index_col=0, na_values=['NA'], encoding='utf-8')
+    features = np.array(features_df.columns)
 
-print(titles)
+    id_arr = list(id_arr)
 
-# NUMERICAL INPUT
-print(df)
+    for i in range(len(id_arr)):
+
+        row_features = []
+
+        for key, value in features_df.iteritems():
+            row_features.append(round(float(features_df[key][int(id_arr[i])]), 6))
+
+        row_features = np.asarray(row_features)
+        features = np.vstack((features, row_features))
+
+    features = np.delete(features, 0, 0)
+
+    return features
