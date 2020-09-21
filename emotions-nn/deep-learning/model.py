@@ -1,27 +1,21 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import InputLayer
-from emotions import emodict
-from input import extract_features
-from ground_truth import get_ground_truth
 import numpy as np
+from organize_data import data
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split as split
-
-emotions = emodict()
-input_data = extract_features()
-output_data = get_ground_truth()
-
-input_data = np.asarray(input_data).astype(np.float32)
-output_data = np.asarray(output_data).astype(np.float32)
 
 '''
 File of the actual neural network model
 '''
 
+# Datasets
+train_data, val_data, test_data, output_data = data()
+
 seed = 7
 np.random.seed(seed)
 
+# Model
 model = Sequential()
 model.add(InputLayer(input_shape=(518, )))
 model.add(Dense(512, activation='relu'))

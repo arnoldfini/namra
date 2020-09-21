@@ -11,7 +11,7 @@ def get_random_id():
     random_titles = []
     model_titles = getTitles()
 
-    for i in range(20):
+    for i in range(36):
         j = np.random.randint(low=10, high=6000, dtype=int)
         random_titles.append(df['track.19'][j])
 
@@ -22,14 +22,13 @@ def get_random_id():
                 random_id.append(df['Unnamed: 0'][i])
                 break
 
+    random_id = np.asarray(random_id, dtype=int)
+
     print(f'Titles: {random_titles} \nArray of IDs: {random_id} \nLength of the array {len(random_titles)} ')
 
-    return id
+    return random_id
 
 
-random_id = get_random_id()
-
-features = extract_features(random_id)
-print(features)
-
-
+def test_dataset():
+    ids = get_random_id()
+    return extract_features(ids)
