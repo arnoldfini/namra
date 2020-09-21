@@ -64,9 +64,6 @@ def df_avg():
 
         key_num += 1
 
-
-
-
     df_dict = {'Feelings': [avg_feeling for avg_feeling in avg[::3]],
                'Transcendent': [avg_transc for avg_transc in avg[1::3]],
                'Likeable': [like for like in avg[2::3]]}
