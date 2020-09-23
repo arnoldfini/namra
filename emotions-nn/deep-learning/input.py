@@ -2,7 +2,6 @@ import pandas as pd
 from avgdata import getTitles
 import numpy as np
 import sys
-from test_data import get_random_id
 
 # Set input_real, the actual labels, to the titles themselves
 input_real = getTitles()
