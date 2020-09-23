@@ -2,31 +2,19 @@ from emotions import emodict
 import numpy as np
 from avgdata import getTitles, df_avg
 
-array = ['EU', 'rejects', 'German', 'call', 'to', 'boycott', 'British', 'lamb', '.']
+df = df_avg()
 
-array = str(array)
-array.replace("'", '"')
-array.replace("[", "")
-array.replace("]", "")
-
-words = []
-for i in range(len(array)):
-
-    if array[i] == ',':
-        words.append(array[:i])
-        break
-
-print(words)
-
+df_train = df.drop(df.index[[range(7)]])
+df_val = df.drop(df.index[[range(7, len(df))]])
 
 
 def compute_average(df):
+
     def find_nearest(array, value):
         array = np.asarray(array)
         idx = (np.abs(array - value)).argmin()
         return array[idx]
 
-    # df = df_avg()
     emotions = emodict()
     emotions_list = [k for k, v in emotions.items()]
     titles = getTitles()
@@ -61,16 +49,11 @@ def compute_average(df):
 
         most_accurate.append(most_accurate_emotion)
 
-        return most_accurate
-
-
-def get_ground_truth(most_accurate):
-
     # Transform feelings into vectors as its own dimension
     emotions = emodict()
     emotions_list = [k for k, v in emotions.items()]
 
-    ground_truth = np.zeros((len(most_accurate), len(most_accurate)), dtype=int)
+    ground_truth = np.zeros((len(most_accurate), len(emotions)), dtype=int)
 
     for i in range(len(most_accurate)):
         for j in range(len(emotions_list)):
@@ -81,6 +64,4 @@ def get_ground_truth(most_accurate):
 
     return ground_truth
 
-'''df = df_avg
-avg = compute_average(df)
-print(get_ground_truth(avg))'''
+
