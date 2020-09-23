@@ -2,13 +2,8 @@ from emotions import emodict
 import numpy as np
 from avgdata import getTitles, df_avg
 
-df = df_avg()
 
-df_train = df.drop(df.index[[range(7)]])
-df_val = df.drop(df.index[[range(7, len(df))]])
-
-
-def compute_average(df):
+def compute_ground_truth(df):
 
     def find_nearest(array, value):
         array = np.asarray(array)
