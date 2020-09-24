@@ -4,7 +4,7 @@ from tensorflow.keras.layers import InputLayer
 import numpy as np
 from organize_data import data, labels
 from emotions import emodict
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as pyplot
 
 '''
 File of the actual neural network model
@@ -12,6 +12,7 @@ File of the actual neural network model
 
 # Emotions
 emotions = emodict()
+emotions_list = [k for k, v in emotions.items()]
 
 # Datasets
 train_data, val_data, test_data = data()
@@ -23,20 +24,29 @@ np.random.seed(seed)
 # Model
 model = Sequential()
 model.add(InputLayer(input_shape=(518, )))
-model.add(Dense(512, activation='relu'))
-model.add(Dense(512, activation='relu'))
-model.add(Dense(len(emotions), activation='sigmoid'))
+model.add(Dense(512, activation='sigmoid'))
+model.add(Dense(512, activation='sigmoid'))
+model.add(Dense(len(emotions), activation='softmax'))
 
 print(model.summary)
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+model.compile(loss='kullback_leibler_divergence', optimizer='adam', metrics=['accuracy'])
 
 # Fit the model
-history = model.fit(train_data, train_labels, epochs=1000, batch_size=64, verbose=0)
+history = model.fit(train_data, train_labels, validation_data=(val_data, val_labels), epochs=100, batch_size=64, verbose=0)
 
 # evaluate the model
-loss, accuracy = model.evaluate(val_data, val_labels)
+loss, accuracy = model.evaluate(train_data, train_labels)
+model.save(f'emotions_model_{accuracy*100:.2f}')
 
 print(f'Loss of the neural network: {loss} \nAccuracy of the neural network: {accuracy*100}%')
 
+'''prediction = model.predict(test_data[0])
 
+emotion_index = prediction.index(np.argmax(prediction))
+emotion = emotions_list[emotion_index]
+
+print('----------------------------------------------------------')
+print(f'This is a {emotion} song. ')
+'''
