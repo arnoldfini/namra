@@ -36,4 +36,7 @@ def labels():
     train_labels = compute_ground_truth(df_train)
     val_labels = compute_ground_truth(df_val)
 
+    #test_data = test_dataset()
+    #test_labels = compute_ground_truth(test_data)
+
     return train_labels, val_labels
