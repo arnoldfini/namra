@@ -23,7 +23,7 @@ np.random.seed(seed)
 
 # Model
 model = Sequential()
-model.add(InputLayer(input_shape=(518, )))
+model.add(InputLayer(input_shape=518))
 model.add(Dense(512, activation='sigmoid'))
 model.add(Dense(512, activation='sigmoid'))
 model.add(Dense(len(emotions), activation='softmax'))
