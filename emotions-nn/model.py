@@ -17,14 +17,7 @@ emotions_list = [k for k, v in emotions.items()]
 # Datasets
 train_data, val_data = data()
 train_labels, val_labels = labels()
-'''
-train_data = np.reshape(train_data, (train_data.shape[0], 1, train_data.shape[1]))
-val_data = np.reshape(val_data, (val_data.shape[0], 1, val_data.shape[1]))
 
-train_labels = np.reshape(train_labels, (train_labels.shape[0], 1, train_labels.shape[1]))
-val_labels = np.reshape(val_labels, (val_labels.shape[0], 1, val_labels.shape[1]))'''
-
-print(train_data)
 seed = 7
 np.random.seed(seed)
 
