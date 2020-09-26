@@ -20,4 +20,5 @@ for i in range(36):
     emotion = emotions_list[emotion_index]
 
     print('----------------------------------------------------------')
-    print(f'{artists[i]} - {titles[i]} is a {emotion.lower()} song. ')
+    print(test_data[i])
+    print(f'{titles[i]} is a {emotion.lower()} song. ')
