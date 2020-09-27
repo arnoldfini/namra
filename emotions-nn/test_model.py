@@ -12,6 +12,9 @@ emotions_list = [k for k, v in emotions.items()]
 
 test_data, titles, artists = test_data()
 
+df_dict = {}
+emo = [[], []]
+
 for i in range(36):
     prediction = model.predict(np.expand_dims(test_data[i], axis=0))
 
@@ -20,5 +23,8 @@ for i in range(36):
     emotion = emotions_list[emotion_index]
 
     print('----------------------------------------------------------')
-    print(test_data[i])
     print(f'{titles[i]} is a {emotion.lower()} song. ')
+
+    emo[emotion_index].append(titles[i])
+
+print(emo)
