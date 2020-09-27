@@ -1,5 +1,5 @@
 import tensorflow as tf
-from organize_data import data, labels, test_data
+from organize_data import test_data
 from emotions import emodict
 import pandas as pd
 import numpy as np
