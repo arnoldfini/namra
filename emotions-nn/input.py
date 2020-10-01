@@ -3,22 +3,19 @@ from avgdata import getTitles
 import numpy as np
 import sys
 
-# Set input_real, the actual labels, to the titles themselves
+# Declarar input_real
 input_real = getTitles()
 
 '''
-File to grab the input.
-Input: numerical attributes of songs used in the form stored in music.csv
 
-Input:
-
-- Numerical (numerical values) from D:\fma_metadata\features.csv
+Fitxer per extreue l'input.
+Input: valors numèrics de les cançons emmagatzemats a D:\fma_metadata\features.csv
 
 '''
 
 
 def get_id():
-    # Iterate through the dataframe to store the song's IDs
+    # Iterar per tot el dataframe per emmagatzemar els IDs de les cançons desitjades
     titles = getTitles()
     df = pd.read_csv(r'D:\fma_metadata\tracks.csv', index_col=None, na_values=['NA'], delimiter=',', encoding="utf-8")
     id = []
