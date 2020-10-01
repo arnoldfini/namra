@@ -10,11 +10,9 @@ input_real = getTitles()
 File to grab the input.
 Input: numerical attributes of songs used in the form stored in music.csv
 
-Two types of input:
+Input:
 
-- Numerical (numerical values)
-
-- Textual (every word is a dimension in of itself)
+- Numerical (numerical values) from D:\fma_metadata\features.csv
 
 '''
 
