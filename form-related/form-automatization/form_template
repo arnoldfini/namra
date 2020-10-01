@@ -1,6 +1,8 @@
 // Function to automatise creation of a google form
 // Language: Javascript
 
+// Function to automatise creation of a google form
+
 function myFunction() {
 
   // create and name form
@@ -77,7 +79,8 @@ function myFunction() {
 
     // Video
     form.addVideoItem()
-      .setVideoUrl(ytUrl);
+      .setVideoUrl(ytUrl)
+      .setHelpText('Recomiendo escucharla al menos 30 segundos');
 
     // To store the random numbers that will be the indexes of feelings[]
     var indexFeelings1 = [];
@@ -189,7 +192,16 @@ function myFunction() {
 
     // To ask if they have reflected the song
     var item = form.addMultipleChoiceItem();
-    item.setTitle('Te ha hecho reflexionar?');
+    item.setTitle('Crees que la canción incita a la reflexión?');
+    item.setRequired(true);
+    item.setChoices([
+          item.createChoice('Sí'),
+          item.createChoice('No'),
+      ]);
+    
+    // To ask if they would listen the song by themselves
+    var item = form.addMultipleChoiceItem();
+    item.setTitle('Escucharías esta canción otra vez?');
     item.setRequired(true);
     item.setChoices([
           item.createChoice('Sí'),
@@ -199,14 +211,8 @@ function myFunction() {
   }
 
   // To store the name of all the songs and URLs
-  var songs = [];
-  var urls = [];
-
-  songs.push('Für Elise')
-  urls.push('https://www.youtube.com/watch?v=s71I_EWJk7I')
-
-  songs.push('Comfortably Numb')
-  urls.push('https://www.youtube.com/watch?v=x-xTttimcNk')
+  var songs = ['Weekend Warrior', 'Untitled 2', 'Tea Break', 'Death Spell', 'Our Hired Girl', 'Azalea Waltz', 'grotesque10', 'Tardis Dream (Tribute To Dr.Who)', 'Interlude', 'Upside Down', 'Smell', 'Juno Six Sex', 'She Says', 'Cut Meat', 'Vibration', 'Tundra', 'Agua', 'Nevesta (Flayve Remix)', 'Field recording from Thailand', 'Pale Ghost', 'Tonight', 'Alien Language', 'Kids 4', 'Cloud Poems', 'Earthship', 'Wash Out', '081_030222', 'Stacks Of Stuff', 'Beethoven Really Rolls Over (Rage Over Lost Penny)', 'Wet Ashtray', 'No Disclaimer', "Il Sol dell'Avvenire", 'Radiant Jaguar', 'Perpethual Background of a Field (second sight) - Part I', 'Le meilleur des mondes', 'Ice Cream & Cigarettes'];
+  var urls = ['https://www.youtube.com/watch?v=ZQi7MobiDV8', 'https://www.youtube.com/watch?v=BbTSKh_ANPU', 'https://www.youtube.com/watch?v=92b3xmVxUkM', 'https://www.youtube.com/watch?v=I6F3BlpFbic', 'https://www.youtube.com/watch?v=IjwhNpbKdoQ', 'https://www.youtube.com/watch?v=SJV6Sq9FVUA', 'https://www.youtube.com/results?search_query=Manueljgrotesque+-+grotesque10&sp=QgIIAQ%253D%253D', 'https://www.youtube.com/results?search_query=Ctephin+-+Tardis+Dream+%28Tribute+To+Dr.Who%29&sp=QgIIAQ%253D%253D', 'https://www.youtube.com/watch?v=CwLR3_G_FbM', 'https://www.youtube.com/results?search_query=Oblivian+Substanshall+-+Upside+Down&sp=QgIIAQ%253D%253D', 'https://www.youtube.com/watch?v=WgKQsIa18DE', 'https://www.youtube.com/watch?v=N4TTAxX-cgw', 'https://www.youtube.com/watch?v=tWG976BJaZY', 'https://www.youtube.com/watch?v=qUHUsUsd5pw', 'https://www.youtube.com/watch?v=RiLWAH3n_Lo', 'https://www.youtube.com/watch?v=7_SmZDP-nPo', 'https://www.youtube.com/watch?v=-xbHFN8vEU0', 'https://www.youtube.com/watch?v=IjQGpWhodoo', 'https://www.youtube.com/watch?v=KrsDCjmepB4', 'https://www.youtube.com/watch?v=iC3MH7Luqg4', 'https://www.youtube.com/watch?v=H7S-w0XaA3s', 'https://www.youtube.com/watch?v=dqrdsUl2OBA', 'https://www.youtube.com/watch?v=Bp3MO54dnKk', 'https://www.youtube.com/watch?v=4GvkWhKx0OI', 'https://www.youtube.com/watch?v=IIFMUvbtJDw', 'https://www.youtube.com/watch?v=olAm7nnMKMk', 'https://www.youtube.com/watch?v=CRIVrR2_iaM', 'https://www.youtube.com/watch?v=Q-xlZUDvzM0', 'https://www.youtube.com/watch?v=qUTccX2PwIY', 'https://www.youtube.com/watch?v=NTLDkEYAXHw', 'https://www.youtube.com/watch?v=mHPgXJyx5F8', 'https://www.youtube.com/watch?v=OUBuvXYtuTw', 'https://www.youtube.com/watch?v=xkl1jQy4uns', 'https://www.youtube.com/results?search_query=Jimmy+Watt+-+Perpethual+Background+of+a+Field+%28second+sight%29+-+Part+I&sp=QgIIAQ%253D%253D', 'https://www.youtube.com/watch?v=TWB4EcogNa8', 'https://www.youtube.com/watch?v=uU1xarfJOPM'];
 
   // Loop to initialise the newSong function "songs.length" times
   var z;
