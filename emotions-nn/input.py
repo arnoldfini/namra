@@ -8,7 +8,7 @@ input_real = getTitles()
 
 '''
 
-Fitxer per extreue l'input.
+Fitxer per extreure l'input.
 Input: valors numèrics de les cançons emmagatzemats a D:\fma_metadata\features.csv
 
 '''
