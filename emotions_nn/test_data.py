@@ -1,7 +1,13 @@
 import numpy as np
 import pandas as pd
 from avgdata import getTitles
-from input import extract_features
+# from input import extract_features
+
+
+def extract_features(ids):
+    features_df = pd.read_csv(r'D:\fma_metadata\features.csv', index_col=0, na_values=['NA'], encoding='utf-8', header=[0, 1, 2])
+    order = features_df.columns
+    return features_df.loc[ids, order].round(6).to_numpy()
 
 
 def test_dataset():

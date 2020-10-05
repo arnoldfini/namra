@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 '''
 
@@ -8,8 +9,8 @@ Emotions that had been taken into account. They are classified into a 2D plane.
 
 '''
 
-def emodict():
 
+def emodict():
     emotions = {
 
         # PART 1
@@ -59,13 +60,14 @@ def emodict():
 
     return emotions
 
-def emoreverse():
 
+def emoreverse():
     emotions = emodict()
 
     reverse = {v: k for k, v in emotions.items()}
 
     return reverse
+
 
 def emodictrans():
     emociones = {
@@ -117,8 +119,8 @@ def emodictrans():
 
     return emociones
 
-def emoreversetrans():
 
+def emoreversetrans():
     dict = emodictrans()
 
     reverso = {v: k for k, v in dict.items()}
@@ -127,7 +129,6 @@ def emoreversetrans():
 
 
 def angle(num):
-
     num = math.radians(num)
     polar = [math.cos(num), math.sin(num)]
 
@@ -135,3 +136,22 @@ def angle(num):
     polar[1] = float('%.2f' % round(polar[1], 2))
 
     return tuple(polar)
+
+'''
+for key, value in emodict().items():
+
+    if key == 'Happy':
+        print('\nPART 1')
+
+    elif key == 'Tense':
+        print('\nPART 2')
+
+    elif key == 'Miserable':
+        print('\nPART 3')
+
+    elif key == 'Sleepy':
+        print('\nPART 4')
+
+
+    print(key, value)
+'''

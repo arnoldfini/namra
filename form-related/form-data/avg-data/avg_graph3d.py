@@ -56,6 +56,7 @@ for i in range(0, 360):
     cos.append(math.cos(i))
     sin.append(math.sin(i))
 
+
 # Plot unit circle
 ax.plot(cos, sin, 'k--', linewidth=0.1)
 
