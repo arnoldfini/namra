@@ -108,7 +108,11 @@ def iter_str_tuple(tuple_str):
             attributes[0] = float(tuple_str[:i])
             attributes[1] = float(tuple_str[i + 1:])
 
-    return attributes
+    return attributes[0], attributes[1]
 
+
+
+df = df_avg()
+df.to_csv('average.csv', sep=',')
 
 #with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
