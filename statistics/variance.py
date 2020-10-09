@@ -1,16 +1,17 @@
+import ast
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import statistics as stat
+import sys
 import scipy.stats as stats
+import pandas as pd
 
 df = pd.read_csv(r'C:\Users\serio\PycharmProjects\namra\form-related\form-data\machine-form.csv', encoding='utf-8',
-                 header=[0,1], index_col=None, na_values=['NA'])
+                 header=[0, 1], index_col=None, na_values=['NA'])
 
-print(df.head())
-
-
-def iter_str_tuple(tuple_str):
+'''def iter_str_tuple(tuple_str):
     attributes = np.array([0, 0], dtype=float)
 
     if tuple_str.startswith('('):
@@ -37,15 +38,9 @@ def square_avg(song, df):
     for i in range(1, len(df)):
 
         if type(df[f'{song}'][i]) != type(3.1):
-            try:
-                cos, sin = iter_str_tuple(df[f'{song}'][i])
 
-                nums_emotions_cos.append(cos ** 2)
-                nums_emotions_sin.append(sin ** 2)
-
-            except ValueError:
-
-                continue
+            cos, sin = list(ast.literal_eval((df[f'{song}'][i])))
+            print(cos)
 
         if type(df[f'{song}'][i]) != type(3.1):
             nums_transcendental.append(int(df[f'{song}.1'][i]) ** 2)
@@ -87,19 +82,15 @@ def arithmetic_avg(song, df):
 
         if type(df[f'{song}'][i]) != type(3.1):
             try:
-                cos, sin = iter_str_tuple(df[f'{song}'][i])
+                cos, sin = ast.literal_eval(df[f'{song}'][i])
 
-                nums_emotions_cos.append(cos)
-                nums_emotions_sin.append(sin)
-
-            except ValueError:
-
+            except KeyError:
                 continue
 
-        if type(df[f'{song}'][i]) != type(3.1):
+        if type(df[f'{song}.1'][i]) != type(3.1):
             nums_transcendental.append(int(df[f'{song}.1'][i]))
 
-        if type(df[f'{song}'][i]) != type(3.1):
+        if type(df[f'{song}.2'][i]) != type(3.1):
             nums_like.append(int(df[f'{song}.2'][i]))
 
     # Average of each other:
@@ -134,18 +125,80 @@ def variance(song, df):
 
 def standard_deviation(song, df):
     return np.sqrt(variance(song, df))
+'''
 
 
-s = df['Weekend Warrior']
-standard_dev = np.std(s)
-arith_avg = np.mean(s)
+def quartiles_median(song):
+    i = 0
+    for key, value in df.iteritems():
+        if key[0] == song:
+            break
+        i += 1
 
-mu, sigma = arith_avg[1], standard_dev[1]
-x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
-plt.plot(x, stats.norm.pdf(x, mu, sigma))
-plt.title('La volverías a escuchar?'+' \u03BC =' f'{round(mu, 3)},'+' \u03C3 =' f'{round(sigma, 3)}')
+    form = np.transpose(np.asarray(df))
+    question = form[i]
+
+    data = []
+    for key in question:
+
+        if type(key) != type(2.1):
+            tuples = ast.literal_eval(key)
+
+            num0 = tuples[0]
+
+            if type(num0) == type((3, 1)):
+                angle0 = data.append(np.degrees(np.arccos(num0[0])))
+                angle1 = data.append(np.degrees(np.arccos(num0[1])))
+
+            else:
+                angle0 = data.append(np.degrees(np.arccos(num0)))
+
+    data = np.asarray(sorted(data))
+    data = np.round(data, decimals=0)
+    data = np.asarray(data, dtype=int)
+    data = data.tolist()
+
+    q1 = np.percentile(data, 25)
+    median = np.percentile(data, 50)
+    q3 = np.percentile(data, 75)
+
+    return q1, median, q3, data
+
+
+def count_nums_in_array(array):
+    # Function that returns occurrence of the items in array in a df (key, value)
+    a = np.array(array)
+    unique, counts = np.unique(a, return_counts=True)
+    occurrence_items = dict(zip(unique, counts))
+
+    x = [key for key, value in occurrence_items.items()]
+    y = [value for key, value in occurrence_items.items()]
+
+    df = pd.Series(occurrence_items, index=occurrence_items.keys())
+
+    return df
+
+
+song = 'Weekend Warrior'
+
+# Define mu and sigma
+_, _, _, data = quartiles_median(song)
+standard_dev = np.std(data)
+mean = np.mean(data)
+mu, sigma = mean, standard_dev
+print(np.asarray(count_nums_in_array(data))
+df_items_number = pd.DataFrame({'A': list(count_nums_in_array(data))})
+
+#dataframe = pd.DataFrame({'A': data})
+
+df_items_number.A.plot(kind='hist', density=True)
+
+# Plot normal distribution
+x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
+plt.plot(x, stats.norm.pdf(x, mu, sigma), data=df_items_number)
+
+plt.title(f'Distribució Normal de {song} (' + '\u03BC =' f'{round(mu, 3)},' + ' \u03C3 =' f'{round(sigma, 3)})')
 plt.show()
-
 
 '''count, bins, ignored = plt.hist(s, 30, density=True)
 plt.plot(bins, 1 / (sigma * np.sqrt(2 * np.pi)) *
