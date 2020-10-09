@@ -4,7 +4,6 @@ from tensorflow.keras.layers import InputLayer
 import numpy as np
 from organize_data import data, labels
 from emotions import emodict
-import matplotlib.pyplot as pyplot
 
 '''
 File of the actual neural network model
