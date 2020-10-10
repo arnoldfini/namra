@@ -5,7 +5,9 @@ import numpy as np
 import math
 import statistics as stat
 import sys
+from scipy.stats import norm
 import scipy.stats as stats
+import pylab as pl
 import pandas as pd
 
 df = pd.read_csv(r'C:\Users\serio\PycharmProjects\namra\form-related\form-data\machine-form.csv', encoding='utf-8',
@@ -179,23 +181,23 @@ def count_nums_in_array(array):
     return df
 
 
-song = 'Weekend Warrior'
+song = 'Bwar'
 
 # Define mu and sigma
 _, _, _, data = quartiles_median(song)
-standard_dev = np.std(data)
-mean = np.mean(data)
-mu, sigma = mean, standard_dev
-print(np.asarray(count_nums_in_array(data))
-df_items_number = pd.DataFrame({'A': list(count_nums_in_array(data))})
+#del data[len(data)-1]
 
-#dataframe = pd.DataFrame({'A': data})
+mu = np.mean(data)
+sigma = np.std(data)
 
-df_items_number.A.plot(kind='hist', density=True)
+# Plot histogram
+plt.hist(data, bins=25, density=True, alpha=0.6, color='g')
 
 # Plot normal distribution
-x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 100)
-plt.plot(x, stats.norm.pdf(x, mu, sigma), data=df_items_number)
+xmin, xmax = plt.xlim()
+x = np.linspace(xmin, xmax, 100)
+p = norm.pdf(x, mu, sigma)
+plt.plot(x, p, 'k', linewidth=2)
 
 plt.title(f'Distribució Normal de {song} (' + '\u03BC =' f'{round(mu, 3)},' + ' \u03C3 =' f'{round(sigma, 3)})')
 plt.show()

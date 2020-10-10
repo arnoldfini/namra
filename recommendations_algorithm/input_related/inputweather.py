@@ -8,11 +8,8 @@ Get weather via Yahoo API
 
 '''
 
-def main():
-    print(getWeather())
-    #getClimate()
 
-def getWeather():
+def get_weather():
 
     url = 'http://ipinfo.io/json'
     data = requests.get(url).json()
@@ -29,49 +26,49 @@ def getWeather():
 
     return temp, location
 
-def getClimate():
 
-    koppenclimate = [
-        Af,
-        Am,
-        As,
-        Aw,
-        BSh,
-        BSk,
-        BWh,
-        BWk,
-        Cfa,
-        Cfb,
-        Cfc,
-        Csa,
-        Csb,
-        Csc,
-        Cwa,
-        Cwb,
-        Cwc,
-        Dfa,
-        Dfb,
-        Dfc,
-        Dfd,
-        Dsa,
-        Dsb,
-        Dsc,
-        Dwa,
-        Dwb,
-        Dwc,
-        Dwd,
-        EF,
-        ET
+def get_climate():
+
+    # Based on Köppen-Geiger climate classification
+    hot = [
+        'Af',
+        'Am',
+        'As',
+        'Aw',
+        'BSh',
+        'BSk',
+        'BWh',
+        'BWk',
+        'Cfa',
+        'Cfb',
     ]
 
-    temp, location = getWeather()
+    cold = [
+        'Cfc',
+        'Csa',
+        'Csb',
+        'Csc',
+        'Cwa',
+        'Cwb',
+        'Cwc',
+        'Dfa',
+        'Dfb',
+        'Dfc',
+        'Dfd',
+        'Dsa',
+        'Dsb',
+        'Dsc',
+        'Dwa',
+        'Dwb',
+        'Dwc',
+        'Dwd',
+        'EF',
+        'ET'
+    ]
+
+    temp, location = get_weather()
 
     url = 'https://www.mindat.org/climate.php'
     print(requests.get(url).content)
     data = requests.get(url).json()
- #   logger.info(type(data))
- #   requests.post(url, data=json.dumps(data))
-  #  data.encoding = 'utf-8'
 
-  #  print(data.text)
-main()
