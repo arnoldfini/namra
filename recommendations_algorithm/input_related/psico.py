@@ -15,7 +15,7 @@ Some questions will be asked, based on an actual psychology this will give us a 
 
 '''
 
-emotion_dict = emodict()
+emotion_dict = emocat()
 emotion_list = [key for key, value in emotion_dict.items()]
 
 # using now() to get current time
@@ -38,8 +38,8 @@ class Psychology:
             # Let the user write whatever he wants and find easy patterns in the input that give an idea of whatever
             # they are expecting to
 
-            inp = cs50.get_string('How are you feeling right now? ')
-            possibleInput = [key for key, value in emodict().items()]
+            inp = cs50.get_string('Com et sents ara mateix? ')
+            possibleInput = [key for key, value in emotion_dict.items()]
 
             try:
                 actualEmotion = [emotion for emotion in possibleInput if re.search(rf'{emotion}', inp)][0]
@@ -60,7 +60,7 @@ class Psychology:
             return None
 
     def select_feelings(self):
-        print('\nList of emotions: ')
+        print("\nLlista d'emocions: ")
         sleep(1)
 
         i = 0
@@ -68,8 +68,8 @@ class Psychology:
             print(f'{i}: {key}')
             i += 1
 
-        input_emotions = cs50.get_int("\nWe didn't understand what you meant.\nSelect the ONE that most appeal to you "
-                                      "right now (the number).\nInput: ")
+        input_emotions = cs50.get_int("\nNo hem entès el que volies dir.\nSelecciona UNA amb la que més t'identifiques "
+                                      "ara mateix (el número).\nInput: ")
         input_index = ast.literal_eval(str(f'({input_emotions})'))
 
         emotion = emotion_dict[emotion_list[input_index]]
@@ -90,14 +90,14 @@ class Psychology:
 
         except requests.exceptions.ConnectionError:
             print('-' * 50)
-            prompt = cs50.get_string('\nAn error occurred. Reconnect to internet (type "r"), or leave (type any other '
-                                     'key): ')
+            prompt = cs50.get_string('\nError. Reconnecta a internet (escriu "r") o abandona el programa (escriu '
+                                     'qualsevol altra tecla)')
 
             if prompt == 'r':
                 pass
 
             else:
-                print('\nAborted program successfully.')
+                print('\nPrograma abortat amb èxit.')
                 exit()
 
             sleep(3)

@@ -7,15 +7,15 @@ import random
 from selenium import webdriver
 import re
 
-name = input("\nWhat's your name? ")
+name = input("\nCom et dius? ")
 
 #df = df_for_recommendation()
 df = pd.read_csv('df.csv', header=0, index_col=None, na_values=['NA'])
 
-print('\nNon Archetypical Music Algorithm. All rights reserved.\n')
-print(f'Hello, {name}')
-print('In order to recommend you the most suitable songs, we need a bit of context. ')
-print('Please respond the following question.\n')
+print('\nNon Archetypical Music Algorithm.\n')
+print(f'Hola, {name}')
+print('Per tal de recomanar-te les cançons més adequades, necessitem una mica de context. ')
+print('Siusplau, respon a la següent pregunta.\n')
 
 # INPUT
 user = Psychology()
@@ -32,11 +32,12 @@ ids.drop(columns=columns_to_delete, inplace=True)
 ids.drop(ids.index[101:], inplace=True)
 #print(ids)
 
-emo_dict = emoreverse()
+emoreverse = emocat_reverse()
+emo_dict = emocat()
 columns = len(df.columns)
 
 print('-' * 50)
-print(f'\nUser context report:\nWeather: {weather}º\nEmotion: {emo_dict[emotion]}\nTime: {time}')
+print(f"\nInforme de context de l'usuari:\nTemps: {weather}º\nEmoció: {emoreverse[emotion], emotion}\nHora del dia: {time}")
 time = time / 24
 
 
@@ -46,17 +47,63 @@ def recommendation_algorithm(name, df, song_ids, emotion, weather, climate, time
     if climate == 0 and weather < 20:
         for i in range(len(df)):
 
-            # Bad mood case, low temperature,
-            if df['emotion_sin'][i] > 0. and df['emotion_cos'][i] < 0. and df['acousticness'][i] > 0.5 and (df['danceability'][i] and df['energy'][i] < 0.5):
-                suitable.append(df['track_id'][i])
+            # Bad mood case, low intensity
+            if emotion[0] < 0. and time > 20:
+                if df['acousticness'][i] > 0.5 and (df['danceability'][i] and df['energy'][i] < 0.5):
+                    if df['emotion_cos'][i] < 0. and df['emotion_sin'][i] < 0.:
+                        suitable.append(df['track_id'][i])
 
-            # Bad mood case, high temperature (High intensity as for temp, low positivity as for mood)
-            elif df['emotion_sin'][i] > 0. and df['emotion_cos'][i] < 0. and df['acousticness'][i] > 0.5 and (df['danceability'][i] and df['energy'][i] < 0.5):
-                suitable.append(df['track_id'])
+            # Bad mood case, high intensity
+            elif emotion[0] < 0. and time < 20:
+                if df['acousticness'][i] > 0.5 and (df['danceability'][i] and df['energy'][i] < 0.5):
+                    if df['emotion_cos'][i] < 0. and df['emotion_sin'][i] > 0.:
+                        suitable.append(df['track_id'][i])
 
-            # Good mood, low temperature
-            # Good mood, high temperature
+            # Good mood, low intensity
+            elif emotion[0] > 0. and time > 20:
+                if df['acousticness'][i] > 0.5 and (df['danceability'][i] and df['energy'][i] < 0.5):
+                    if df['emotion_sin'][i] < 0. and df['emotion_cos'][i] > 0.:
+                        suitable.append(df['track_id'][i])
 
+            # Good mood, high intensity
+            elif emotion[0] > 0. and time < 20:
+                if df['acousticness'][i] > 0.5 and (df['danceability'][i] and df['energy'][i] < 0.5):
+                    if df['emotion_sin'][0] > 0. and df['emotion_cos'][i] > 0.:
+                        suitable.append(df['track.id'][i])
+
+    elif climate == 1 and weather > 20:
+        for i in range(len(df)):
+
+            # Bad mood case, low intensity
+            if emotion[0] < 0. and time > 20:
+                if df['acousticness'][i] < 0.5 and (df['danceability'][i] and df['energy'][i] > 0.5):
+                    if df['emotion_cos'][i] < 0. and df['emotion_sin'][i] < 0.:
+                        suitable.append(df['track_id'][i])
+
+            # Bad mood case, high intensity
+            elif emotion[0] < 0. and time < 20:
+                if df['acousticness'][i] < 0.5 and (df['danceability'][i] and df['energy'][i] > 0.5):
+                    if df['emotion_cos'][i] < 0. and df['emotion_sin'][i] > 0.:
+                        suitable.append(df['track_id'][i])
+
+            # Good mood, low intensity
+            elif emotion[0] > 0. and time > 20:
+                if df['acousticness'][i] < 0.5 and (df['danceability'][i] and df['energy'][i] > 0.5):
+                    if df['emotion_sin'][i] < 0. and df['emotion_cos'][i] > 0.:
+                        suitable.append(df['track_id'][i])
+
+            # Good mood, high intensity
+            elif emotion[0] > 0. and time < 20:
+                if df['acousticness'][i] < 0.5 and (df['danceability'][i] and df['energy'][i] > 0.5):
+                    if df['emotion_sin'][0] > 0. and df['emotion_cos'][i] > 0.:
+                        suitable.append(df['track.id'][i])
+
+    if len(suitable) == 0:
+        print("\nNo tenim cap cançó per recomanar-te en la nostra base de dades. Disculpes, en breus estarà arreglat.")
+        sleep(1)
+        print(f"\nEsperem veure't aviat, {name}! ")
+        exit(0)
+        
     suitable_title = []
     for i in range(len(suitable)):
         for j in range(len(song_ids)):
@@ -65,7 +112,7 @@ def recommendation_algorithm(name, df, song_ids, emotion, weather, climate, time
 
     print()
     print('-'*50)
-    print('\nNon Archetypical Music Algorithm in action', end='')
+    print('\nNon Archetypical Music Algorithm en acció', end='')
     sleep(2)
     print('.', end='')
     sleep(2)
@@ -75,19 +122,9 @@ def recommendation_algorithm(name, df, song_ids, emotion, weather, climate, time
 
     sleep(1)
 
-    if len(suitable_title) == 0:
-        print("\nWe don't have any song to recommend you in our database. Apologies and will be fixed soon.")
-        pass
-
-    else:
-        print(f'List of songs the algorithm recommends to you, {name}: ')
-        for song in suitable_title:
-            print(f'- {song}')
-
-
-
-    sleep(1)
-    print(f'Hope to see you soon {name}! ')
+    print(f"Llista de cançons adequades que l'algorisme et recomana, {name}: ")
+    for song in suitable_title:
+        print(f'- {song}')
 
     return
 

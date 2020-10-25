@@ -128,6 +128,61 @@ def emoreversetrans():
     return reverso
 
 
+def emocat():
+    emotions = {
+
+        # PART 1
+
+        'Feliç': angle(5),
+        'Encantat': angle(20),
+
+        'Emocionat': angle(48),
+        'Sorprès': angle(75),
+        'Excitat': angle(80),
+
+        # PART 2
+
+        'Tens': angle(92),
+        'Alarmat': angle(100),
+        'Furiós': angle(105),
+        'Espantat': angle(120),
+        'Irritat': angle(134),
+
+        'Angoixat': angle(140),
+        'Frustrat': angle(145),
+
+        # PART 3
+
+        'Miserable': angle(185),
+        'Trist': angle(190),
+        'Melanconiós': angle(213),
+        'Deprimit': angle(215),
+
+        'Avorrit': angle(235),
+        'Marcit': angle(250),
+        'Cansat': angle(265),
+
+        # PART 4
+
+        'Adormit': angle(275),
+        'Calmat': angle(310),
+
+        'Relaxat': angle(315),
+        'Satisfet': angle(317),
+        'A gust': angle(320),
+        'Content': angle(325),
+        'Serè': angle(330),
+        'Alegre': angle(348),
+        'Molt satisfet': angle(355)
+    }
+
+    return emotions
+
+
+def emocat_reverse():
+    return {value: key for key, value in emocat().items()}
+
+
 def angle(num):
     num = math.radians(num)
     polar = [math.cos(num), math.sin(num)]

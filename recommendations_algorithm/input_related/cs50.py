@@ -2,7 +2,7 @@ import re
 import sys
 
 
-def get_string(prompt):
+def get_string(prompt) -> object:
     """
     Read a line of text from standard input and return it as a string,
     sans trailing line ending. Supports CR (\r), LF (\n), and CRLF (\r\n)
