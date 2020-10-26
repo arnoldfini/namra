@@ -44,6 +44,7 @@ time = time / 24
 def recommendation_algorithm(name, df, song_ids, emotion, weather, climate, time):
     suitable = []
 
+    # Hot climate, cold weather -> - acousticness, + energy and danceability
     if climate == 0 and weather < 20:
         for i in range(len(df)):
 
@@ -71,6 +72,7 @@ def recommendation_algorithm(name, df, song_ids, emotion, weather, climate, time
                     if df['emotion_sin'][0] > 0. and df['emotion_cos'][i] > 0.:
                         suitable.append(df['track.id'][i])
 
+    # Cold climate, cold weather -> + acousticness, - energy and danceability
     elif climate == 1 and weather > 20:
         for i in range(len(df)):
 
@@ -103,7 +105,7 @@ def recommendation_algorithm(name, df, song_ids, emotion, weather, climate, time
         sleep(1)
         print(f"\nEsperem veure't aviat, {name}! ")
         exit(0)
-        
+
     suitable_title = []
     for i in range(len(suitable)):
         for j in range(len(song_ids)):
